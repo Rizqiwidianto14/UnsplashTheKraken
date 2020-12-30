@@ -18,6 +18,11 @@
 		9FB6B33E259B13A600410201 /* UnsplashTheKrakenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B33D259B13A600410201 /* UnsplashTheKrakenUITests.swift */; };
 		9FB6B353259C357100410201 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B352259C357100410201 /* ImageCell.swift */; };
 		9FB6B358259C3CA900410201 /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B357259C3CA900410201 /* CollectionViewLayout.swift */; };
+		9FB6B361259C582C00410201 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B360259C582C00410201 /* ImageModel.swift */; };
+		9FB6B36A259C592A00410201 /* ApiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B369259C592A00410201 /* ApiServices.swift */; };
+		9FB6B379259C6BA700410201 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B378259C6BA700410201 /* EndPoint.swift */; };
+		9FB6B37E259C6E1700410201 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B37D259C6E1700410201 /* Client.swift */; };
+		9FB6B383259C736000410201 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6B382259C736000410201 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,11 @@
 		9FB6B33F259B13A600410201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FB6B352259C357100410201 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		9FB6B357259C3CA900410201 /* CollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayout.swift; sourceTree = "<group>"; };
+		9FB6B360259C582C00410201 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		9FB6B369259C592A00410201 /* ApiServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServices.swift; sourceTree = "<group>"; };
+		9FB6B378259C6BA700410201 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		9FB6B37D259C6E1700410201 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		9FB6B382259C736000410201 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,16 +115,17 @@
 		9FB6B317259B13A500410201 /* UnsplashTheKraken */ = {
 			isa = PBXGroup;
 			children = (
+				9FB6B36E259C593000410201 /* Networking */,
+				9FB6B365259C583400410201 /* Model */,
+				9FB6B35C259C57E800410201 /* View */,
+				9FB6B387259C736600410201 /* ViewModel */,
 				9FB6B318259B13A500410201 /* AppDelegate.swift */,
 				9FB6B31A259B13A500410201 /* SceneDelegate.swift */,
-				9FB6B31C259B13A500410201 /* ViewController.swift */,
 				9FB6B31E259B13A500410201 /* Main.storyboard */,
 				9FB6B324259B13A600410201 /* Assets.xcassets */,
 				9FB6B326259B13A600410201 /* LaunchScreen.storyboard */,
 				9FB6B329259B13A600410201 /* Info.plist */,
 				9FB6B321259B13A500410201 /* UnsplashTheKraken.xcdatamodeld */,
-				9FB6B352259C357100410201 /* ImageCell.swift */,
-				9FB6B357259C3CA900410201 /* CollectionViewLayout.swift */,
 			);
 			path = UnsplashTheKraken;
 			sourceTree = "<group>";
@@ -135,6 +146,42 @@
 				9FB6B33F259B13A600410201 /* Info.plist */,
 			);
 			path = UnsplashTheKrakenUITests;
+			sourceTree = "<group>";
+		};
+		9FB6B35C259C57E800410201 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9FB6B31C259B13A500410201 /* ViewController.swift */,
+				9FB6B357259C3CA900410201 /* CollectionViewLayout.swift */,
+				9FB6B352259C357100410201 /* ImageCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9FB6B365259C583400410201 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9FB6B360259C582C00410201 /* ImageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9FB6B36E259C593000410201 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9FB6B369259C592A00410201 /* ApiServices.swift */,
+				9FB6B378259C6BA700410201 /* EndPoint.swift */,
+				9FB6B37D259C6E1700410201 /* Client.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		9FB6B387259C736600410201 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9FB6B382259C736000410201 /* ViewModel.swift */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,9 +317,14 @@
 				9FB6B358259C3CA900410201 /* CollectionViewLayout.swift in Sources */,
 				9FB6B31D259B13A500410201 /* ViewController.swift in Sources */,
 				9FB6B323259B13A500410201 /* UnsplashTheKraken.xcdatamodeld in Sources */,
+				9FB6B383259C736000410201 /* ViewModel.swift in Sources */,
+				9FB6B379259C6BA700410201 /* EndPoint.swift in Sources */,
 				9FB6B319259B13A500410201 /* AppDelegate.swift in Sources */,
 				9FB6B31B259B13A500410201 /* SceneDelegate.swift in Sources */,
 				9FB6B353259C357100410201 /* ImageCell.swift in Sources */,
+				9FB6B36A259C592A00410201 /* ApiServices.swift in Sources */,
+				9FB6B37E259C6E1700410201 /* Client.swift in Sources */,
+				9FB6B361259C582C00410201 /* ImageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
