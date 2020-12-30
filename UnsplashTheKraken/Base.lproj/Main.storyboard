@@ -1,24 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f1z-eY-BDi">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Unsplash Kraken-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="UnsplashTheKraken" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="s6Z-Xj-EUG">
+                                <rect key="frame" x="0.0" y="140" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ubh-Tp-bcF">
+                                <rect key="frame" x="0.0" y="201" width="414" height="661"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewLayout key="collectionViewLayout" id="32z-a1-HgS" customClass="CollectionViewLayout" customModule="UnsplashTheKraken" customModuleProvider="target"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="4GI-q6-wJH" customClass="ImageCell" customModule="UnsplashTheKraken" customModuleProvider="target">
+                                        <rect key="frame" x="56.5" y="0.0" width="301" height="324"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aXs-Q6-ni0">
+                                            <rect key="frame" x="0.0" y="0.0" width="301" height="324"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FKD-FW-5rW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="301" height="324"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="T8e-Zd-fmO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="301" height="324"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="FKD-FW-5rW" secondAttribute="bottom" id="U1R-cE-Zyk"/>
+                                                <constraint firstAttribute="trailing" secondItem="FKD-FW-5rW" secondAttribute="trailing" id="UCa-Vm-8lk"/>
+                                                <constraint firstItem="FKD-FW-5rW" firstAttribute="top" secondItem="aXs-Q6-ni0" secondAttribute="top" id="eaq-bI-rvb"/>
+                                                <constraint firstItem="FKD-FW-5rW" firstAttribute="leading" secondItem="aXs-Q6-ni0" secondAttribute="leading" id="ftk-Dc-TnE"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="301" height="324"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="imageView" destination="T8e-Zd-fmO" id="eWy-6i-7D8"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="nNA-tH-tbe"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="q7l-ST-fBo"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="s6Z-Xj-EUG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6He-Xu-OeG"/>
+                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9HB-Tv-4cE"/>
+                            <constraint firstItem="s6Z-Xj-EUG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Efo-ol-mTF"/>
+                            <constraint firstItem="s6Z-Xj-EUG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mCL-qg-h0f"/>
+                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qKi-9V-fpx"/>
+                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="top" secondItem="s6Z-Xj-EUG" secondAttribute="bottom" constant="5" id="rlc-XI-QI2"/>
+                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="syQ-Hl-pqu"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Unsplash Kraken" id="iac-Vm-ipm"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Ubh-Tp-bcF" id="hZO-On-9za"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="713.04347826086962" y="118.52678571428571"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3Wf-nl-p90">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f1z-eY-BDi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="QSv-bl-n2a">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="gtA-Hc-hcK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q67-Rj-PQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-197.10144927536234" y="118.52678571428571"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="placeholder" width="200" height="300"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
