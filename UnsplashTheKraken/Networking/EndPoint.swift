@@ -27,30 +27,33 @@ extension EndPoint{
     
 }
 
-enum Order: String {
-    case popular, latest, oldest
+
+enum Query: String{
+    case Jakarta, London
 }
 
+
 enum UnsplashEndpoint: EndPoint {
-    case images(id: String, order: Order)
+    case images(id: String, query: Query)
 
     var baseUrl: String {
         return Client.baseUrl
     }
+    //    https://api.unsplash.com/search/photos?page=1&query=jakarta&client_id=VXW1shYNLxyVT0_bJ9NW7lg1BiPECg1UYYsRmgTDm9o
 
     var path: String {
         switch self {
         case .images:
-            return "/photos"
+            return "/search/photos"
         }
     }
 
     var parameters: [URLQueryItem] {
         switch self {
-        case .images(let id, let order):
+        case .images(let id, let query):
             return [
                 URLQueryItem(name: "client_id", value: id),
-                URLQueryItem(name: "order_by", value: order.rawValue)
+                URLQueryItem(name: "query", value: query.rawValue)
             ]
         }
     }

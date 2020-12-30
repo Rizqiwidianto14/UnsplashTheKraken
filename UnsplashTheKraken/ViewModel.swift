@@ -13,7 +13,7 @@ struct CellViewModel {
 
 class ViewModel {
     private let client: ApiService
-    private var images: Images = [] {
+    private var images: [Image] = [] {
         didSet {
             self.fetchPhoto()
         }
@@ -40,11 +40,11 @@ class ViewModel {
     func fetchPhotos() {
         if let client = client as? Client {
             self.isLoading = true
-            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, order: .latest)
+            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: .Jakarta)
             client.fetch(with: endpoint) { (either) in
                 switch either {
                 case .success(let photos):
-                    self.images = photos
+                    self.images = photos.results
                 case .error(let error):
                     self.showError?(error)
                 }

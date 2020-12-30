@@ -7,13 +7,18 @@
 
 import Foundation
 
-typealias Images = [Image]
+//typealias imageArray = [Images]
 
-struct Image: Codable {
+struct Images: Decodable{
+    let results: [Image]
+    
+}
+struct Image: Decodable {
+    let id: String
     let urls: URLS
 }
 
-struct URLS: Codable {
+struct URLS: Decodable {
     let raw: URL
     let full: URL
     let regular: URL

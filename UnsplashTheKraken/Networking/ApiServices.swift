@@ -13,7 +13,7 @@ enum APIError: Error {
 
 protocol ApiService {
     var session: URLSession { get }
-    func get<T: Codable>(with url: URLRequest, completion: @escaping (Conditions<[T]>) -> Void)
+    func get<T: Decodable>(with url: URLRequest, completion: @escaping (Conditions<T>) -> Void)
 }
 
 enum Conditions<T> {
@@ -27,9 +27,10 @@ extension ApiService {
         return URLSession.shared
     }
 
-    func get<T: Codable>(with url: URLRequest, completion: @escaping (Conditions<[T]>) -> Void) {
+    func get<T: Decodable>(with url: URLRequest, completion: @escaping (Conditions<T>) -> Void) {
         
         let task = session.dataTask(with: url) { (data, response, error) in
+            
             if let error = error{
                 completion(.error(error))
                 return
@@ -38,10 +39,12 @@ extension ApiService {
                 completion(.error(APIError.badRequestResponse))
                 return
             }
-            guard let value = try? JSONDecoder().decode([T].self, from: data!) else {
+            guard let value = try? JSONDecoder().decode(T.self, from: data!) else {
                 completion(.error(APIError.errorWhenDecoding))
                 return
             }
+            
+            
             DispatchQueue.main.async {
                 completion(.success(value))
             }

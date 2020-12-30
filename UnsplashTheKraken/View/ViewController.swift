@@ -18,17 +18,16 @@ class ViewController: UIViewController {
             layout.delegate = self
         }
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        viewModel.reloadData = {
-            self.collectionView.reloadData()
-        }
         viewModel.showError = { error in
             print(error)
+        }
+        viewModel.reloadData = {
+            self.collectionView.reloadData()
         }
         viewModel.fetchPhotos()
         // Do any additional setup after loading the view.
     }
-//
-//    https://api.unsplash.com/search/photos?page=1&query=jakarta&client_id=VXW1shYNLxyVT0_bJ9NW7lg1BiPECg1UYYsRmgTDm9o
+
 }
 
 
