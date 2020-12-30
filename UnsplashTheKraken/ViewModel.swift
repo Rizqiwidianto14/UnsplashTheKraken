@@ -40,9 +40,11 @@ class ViewModel {
     func fetchPhotos() {
         if let client = client as? Client {
             self.isLoading = true
-            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: .Jakarta)
-            client.fetch(with: endpoint) { (either) in
-                switch either {
+            
+            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: Client.query)
+            print(Client.query)
+            client.fetch(with: endpoint) { (condition) in
+                switch condition {
                 case .success(let photos):
                     self.images = photos.results
                 case .error(let error):

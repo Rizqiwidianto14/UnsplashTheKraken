@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="s6Z-Xj-EUG">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="s6Z-Xj-EUG">
                                 <rect key="frame" x="0.0" y="140" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -81,6 +81,7 @@
                     <navigationItem key="navigationItem" title="Unsplash Kraken" id="iac-Vm-ipm"/>
                     <connections>
                         <outlet property="collectionView" destination="Ubh-Tp-bcF" id="hZO-On-9za"/>
+                        <outlet property="searchBar" destination="s6Z-Xj-EUG" id="h1O-sT-n44"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

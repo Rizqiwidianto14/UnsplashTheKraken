@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     let viewModel = ViewModel(client: Client())
 
     
@@ -23,8 +24,10 @@ class ViewController: UIViewController {
         }
         viewModel.reloadData = {
             self.collectionView.reloadData()
+
         }
         viewModel.fetchPhotos()
+        searchBar.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -54,4 +57,20 @@ extension ViewController: UICollectionViewDataSource{
     }
     
     
+    
+}
+
+extension ViewController: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        Client.query = searchBar.text ?? "Jakarta"
+        viewModel.cellViewModels.removeAll()
+        viewModel.showError = { error in
+            print(error)
+        }
+        viewModel.fetchPhotos()
+        viewModel.reloadData = {
+            self.collectionView.reloadData()
+        }
+
+    }
 }
