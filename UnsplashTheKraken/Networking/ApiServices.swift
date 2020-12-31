@@ -28,7 +28,7 @@ extension ApiService {
     }
 
     func get<T: Decodable>(with url: URLRequest, completion: @escaping (Conditions<T>) -> Void) {
-        
+        print(url)
         let task = session.dataTask(with: url) { (data, response, error) in
             
             if let error = error{

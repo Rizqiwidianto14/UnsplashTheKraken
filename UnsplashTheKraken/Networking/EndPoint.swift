@@ -27,14 +27,8 @@ extension EndPoint{
     
 }
 
-//
-//enum Query: String{
-//    case Jakarta, London, Office
-//}
-
-
 enum UnsplashEndpoint: EndPoint {
-    case images(id: String, query: String)
+    case images(id: String, query: String, page: String, perPage: String)
 
     var baseUrl: String {
         return Client.baseUrl
@@ -50,10 +44,12 @@ enum UnsplashEndpoint: EndPoint {
 
     var parameters: [URLQueryItem] {
         switch self {
-        case .images(let id, let query):
+        case .images(let id, let query, let page, let perPage):
             return [
                 URLQueryItem(name: "client_id", value: id),
-                URLQueryItem(name: "query", value: query)
+                URLQueryItem(name: "query", value: query),
+                URLQueryItem(name: "page", value: page),
+                URLQueryItem(name: "per_page", value: perPage)
             ]
         }
     }
