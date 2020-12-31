@@ -13,12 +13,10 @@ struct CellViewModel {
 
 class ViewModel {
     private let client: ApiService
-    private var images: [Image] = [] {
-        didSet {
-            self.fetchPhoto()
-        }
-    }
+     var images: [Image] = []
     var cellViewModels: [CellViewModel] = []
+    var fetchingMore = false
+    var firstState = Int()
     
     
     var isLoading: Bool = false {
@@ -40,13 +38,13 @@ class ViewModel {
     func fetchPhotos() {
         if let client = client as? Client {
             self.isLoading = true
-            
-            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: Client.query)
-            print(Client.query)
+            print("fetchphotos")
+            let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: Client.query, page: Client.page)
             client.fetch(with: endpoint) { (condition) in
                 switch condition {
                 case .success(let photos):
                     self.images = photos.results
+                    self.fetchPhoto()
                 case .error(let error):
                     self.showError?(error)
                 }
@@ -56,6 +54,8 @@ class ViewModel {
     
     
     private func fetchPhoto() {
+        print("fetchingphotos")
+        //images di remove, append lagi
         let group = DispatchGroup()
         self.images.forEach { (photo) in
             DispatchQueue.global(qos: .background).async(group: group) {
@@ -79,6 +79,7 @@ class ViewModel {
             self.isLoading = false
             self.reloadData?()
         }
+        self.images.removeAll()
     }
 
 }

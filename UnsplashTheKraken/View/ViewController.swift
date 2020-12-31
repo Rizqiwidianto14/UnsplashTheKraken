@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     let viewModel = ViewModel(client: Client())
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +24,13 @@ class ViewController: UIViewController {
         }
         viewModel.reloadData = {
             self.collectionView.reloadData()
-
+            
         }
         viewModel.fetchPhotos()
         searchBar.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    
 }
 
 
@@ -41,11 +41,12 @@ extension ViewController: CollectionViewLayoutDelegate{
         return height
     }
     
-
+    
 }
 
 extension ViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("jumlah view model = \(viewModel.cellViewModels.count) || jumlah images = \(viewModel.images.count)")
         return viewModel.cellViewModels.count
     }
     
@@ -68,9 +69,45 @@ extension ViewController: UISearchBarDelegate{
             print(error)
         }
         viewModel.fetchPhotos()
-        viewModel.reloadData = {
-            self.collectionView.reloadData()
-        }
+        self.collectionView.reloadData()
+        
+        
+    }
+}
 
+extension ViewController: UIScrollViewDelegate {
+    func beginReloadViaScrollView() {
+        viewModel.fetchingMore = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ){
+            Client.pageNumber += 1
+            Client.page = "\(Client.pageNumber)"
+            self.viewModel.showError = { error in
+                print(error)
+            }
+            self.viewModel.fetchPhotos()
+            self.viewModel.reloadData = {
+                self.collectionView.reloadData()
+            }
+            self.viewModel.fetchingMore = false
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.height
+        if offsetY > contentHeight - frameHeight - 200{
+            if viewModel.firstState == 1 {
+                if !viewModel.fetchingMore{
+                    beginReloadViaScrollView()
+                }
+                
+            }
+            viewModel.firstState = 1
+        }
+        
+
+        
+        
     }
 }
