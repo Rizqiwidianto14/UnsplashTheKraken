@@ -77,6 +77,9 @@ class CollectionViewLayout: UICollectionViewLayout {
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return cache[indexPath.item]
     }
+    func reloadData(){
+        self.cache = [UICollectionViewLayoutAttributes]()
+    }
     
 }
 

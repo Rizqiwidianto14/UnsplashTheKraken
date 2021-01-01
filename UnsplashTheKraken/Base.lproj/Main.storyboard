@@ -41,7 +41,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ubh-Tp-bcF">
-                                <rect key="frame" x="0.0" y="234" width="414" height="628"/>
+                                <rect key="frame" x="0.0" y="196" width="414" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewLayout key="collectionViewLayout" id="32z-a1-HgS" customClass="CollectionViewLayout" customModule="UnsplashTheKraken" customModuleProvider="target"/>
                                 <cells>
@@ -84,26 +84,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="q7l-ST-fBo"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N1q-fT-WNe">
-                                <rect key="frame" x="305" y="201" width="99" height="23"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNv-hF-8ze">
-                                        <rect key="frame" x="0.0" y="0.0" width="99" height="23"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="labelColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="zNv-hF-8ze" secondAttribute="bottom" id="5r0-Sv-BpJ"/>
-                                    <constraint firstItem="zNv-hF-8ze" firstAttribute="leading" secondItem="N1q-fT-WNe" secondAttribute="leading" id="RE5-mG-Nte"/>
-                                    <constraint firstItem="zNv-hF-8ze" firstAttribute="top" secondItem="N1q-fT-WNe" secondAttribute="top" id="SMo-Nf-QHe"/>
-                                    <constraint firstAttribute="trailing" secondItem="zNv-hF-8ze" secondAttribute="trailing" id="iFk-gq-Qfp"/>
-                                    <constraint firstAttribute="width" constant="99" id="jQr-Ni-VhX"/>
-                                    <constraint firstAttribute="height" constant="23" id="qwQ-BX-2fw"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -111,14 +91,12 @@
                             <constraint firstItem="s6Z-Xj-EUG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6He-Xu-OeG"/>
                             <constraint firstItem="Ubh-Tp-bcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9HB-Tv-4cE"/>
                             <constraint firstItem="s6Z-Xj-EUG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Efo-ol-mTF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N1q-fT-WNe" secondAttribute="trailing" constant="10" id="JnR-Gu-Wam"/>
                             <constraint firstItem="hAr-xa-eJF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Ruo-pA-OIz"/>
                             <constraint firstItem="hAr-xa-eJF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YZQ-X4-Ufl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ubh-Tp-bcF" secondAttribute="bottom" id="a59-4z-d3I"/>
-                            <constraint firstItem="N1q-fT-WNe" firstAttribute="top" secondItem="s6Z-Xj-EUG" secondAttribute="bottom" constant="5" id="dt2-pT-gIe"/>
+                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="top" secondItem="s6Z-Xj-EUG" secondAttribute="bottom" id="g5G-nl-TKJ"/>
                             <constraint firstItem="s6Z-Xj-EUG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mCL-qg-h0f"/>
                             <constraint firstItem="Ubh-Tp-bcF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="syQ-Hl-pqu"/>
-                            <constraint firstItem="Ubh-Tp-bcF" firstAttribute="top" secondItem="N1q-fT-WNe" secondAttribute="bottom" constant="10" id="tHJ-cz-Cap"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Unsplash Kraken" id="iac-Vm-ipm"/>
@@ -126,8 +104,6 @@
                         <outlet property="collectionView" destination="Ubh-Tp-bcF" id="hZO-On-9za"/>
                         <outlet property="downloadingImages" destination="jVQ-Mc-rUm" id="dft-XN-ibg"/>
                         <outlet property="indicatorView" destination="fjr-eV-aTe" id="Qcs-GN-rY0"/>
-                        <outlet property="pageIndicator" destination="zNv-hF-8ze" id="TS1-YN-kfQ"/>
-                        <outlet property="pageView" destination="N1q-fT-WNe" id="Csz-1p-SGb"/>
                         <outlet property="searchBar" destination="s6Z-Xj-EUG" id="h1O-sT-n44"/>
                     </connections>
                 </viewController>
@@ -156,9 +132,6 @@
     </scenes>
     <resources>
         <image name="placeholder" width="200" height="300"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
