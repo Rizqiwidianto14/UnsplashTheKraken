@@ -17,6 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="hAr-xa-eJF">
+                                <rect key="frame" x="107" y="481" width="200" height="40.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading Images.." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVQ-Mc-rUm">
+                                        <rect key="frame" x="0.0" y="0.0" width="168" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fjr-eV-aTe">
+                                        <rect key="frame" x="0.0" y="20.5" width="200" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="0v8-aK-liB"/>
+                                    <constraint firstItem="fjr-eV-aTe" firstAttribute="centerX" secondItem="hAr-xa-eJF" secondAttribute="centerX" id="6sK-Z6-r9H"/>
+                                    <constraint firstAttribute="height" constant="40.5" id="Isg-Ub-0kn"/>
+                                </constraints>
+                            </stackView>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="s6Z-Xj-EUG">
                                 <rect key="frame" x="0.0" y="140" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -93,6 +112,8 @@
                             <constraint firstItem="Ubh-Tp-bcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9HB-Tv-4cE"/>
                             <constraint firstItem="s6Z-Xj-EUG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Efo-ol-mTF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N1q-fT-WNe" secondAttribute="trailing" constant="10" id="JnR-Gu-Wam"/>
+                            <constraint firstItem="hAr-xa-eJF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Ruo-pA-OIz"/>
+                            <constraint firstItem="hAr-xa-eJF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YZQ-X4-Ufl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ubh-Tp-bcF" secondAttribute="bottom" id="a59-4z-d3I"/>
                             <constraint firstItem="N1q-fT-WNe" firstAttribute="top" secondItem="s6Z-Xj-EUG" secondAttribute="bottom" constant="5" id="dt2-pT-gIe"/>
                             <constraint firstItem="s6Z-Xj-EUG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mCL-qg-h0f"/>
@@ -103,6 +124,8 @@
                     <navigationItem key="navigationItem" title="Unsplash Kraken" id="iac-Vm-ipm"/>
                     <connections>
                         <outlet property="collectionView" destination="Ubh-Tp-bcF" id="hZO-On-9za"/>
+                        <outlet property="downloadingImages" destination="jVQ-Mc-rUm" id="dft-XN-ibg"/>
+                        <outlet property="indicatorView" destination="fjr-eV-aTe" id="Qcs-GN-rY0"/>
                         <outlet property="pageIndicator" destination="zNv-hF-8ze" id="TS1-YN-kfQ"/>
                         <outlet property="pageView" destination="N1q-fT-WNe" id="Csz-1p-SGb"/>
                         <outlet property="searchBar" destination="s6Z-Xj-EUG" id="h1O-sT-n44"/>

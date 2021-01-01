@@ -16,7 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var pageIndicator: UILabel!
     @IBOutlet weak var pageView: UIView!
-
+    @IBOutlet weak var downloadingImages: UILabel!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -25,13 +27,22 @@ class ViewController: UIViewController {
             layout.delegate = self
         }
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        viewModel.showLoading = {
+            if self.viewModel.isLoading {
+                self.indicatorView.startAnimating()
+                self.collectionView.alpha = 0.0
+            } else {
+                self.indicatorView.stopAnimating()
+                self.collectionView.alpha = 1.0
+            }
+        }
         viewModel.showError = { error in
             print(error)
         }
         viewModel.reloadData = {
             self.collectionView.reloadData()
             self.collectionView.collectionViewLayout.invalidateLayout()
-
+            
             
         }
         viewModel.fetchPhotos()
@@ -86,6 +97,15 @@ extension ViewController: UISearchBarDelegate{
         Client.page = "\(Client.pageNumber)"
         self.pageIndicator.text = "Page: \(Client.pageNumber)"
         viewModel.cellViewModels.removeAll()
+        viewModel.showLoading = {
+            if self.viewModel.isLoading {
+                self.indicatorView.startAnimating()
+                self.collectionView.alpha = 0.0
+            } else {
+                self.indicatorView.stopAnimating()
+                self.collectionView.alpha = 1.0
+            }
+        }
         viewModel.showError = { error in
             print(error)
         }
@@ -93,7 +113,7 @@ extension ViewController: UISearchBarDelegate{
         self.viewModel.reloadData = {
             self.collectionView.reloadData()
             self.collectionView.collectionViewLayout.invalidateLayout()
-
+            
         }
         
         
@@ -110,6 +130,15 @@ extension ViewController: UIScrollViewDelegate {
             Client.page = "\(Client.pageNumber)"
             self.pageIndicator.text = "Page: \(Client.pageNumber)"
             self.viewModel.cellViewModels.removeAll()
+            self.viewModel.showLoading = {
+                if self.viewModel.isLoading {
+                    self.indicatorView.startAnimating()
+                    self.collectionView.alpha = 0.0
+                } else {
+                    self.indicatorView.stopAnimating()
+                    self.collectionView.alpha = 1.0
+                }
+            }
             self.viewModel.showError = { error in
                 print(error)
             }
@@ -117,7 +146,7 @@ extension ViewController: UIScrollViewDelegate {
             self.viewModel.reloadData = {
                 self.collectionView.reloadData()
                 self.collectionView.collectionViewLayout.invalidateLayout()
-
+                
             }
             self.viewModel.fetchingMore = false
             
@@ -131,6 +160,15 @@ extension ViewController: UIScrollViewDelegate {
             Client.page = "\(Client.pageNumber)"
             self.pageIndicator.text = "Page: \(Client.pageNumber)"
             self.viewModel.cellViewModels.removeAll()
+            self.viewModel.showLoading = {
+                if self.viewModel.isLoading {
+                    self.indicatorView.startAnimating()
+                    self.collectionView.alpha = 0.0
+                } else {
+                    self.indicatorView.stopAnimating()
+                    self.collectionView.alpha = 1.0
+                }
+            }
             self.viewModel.showError = { error in
                 print(error)
             }
@@ -138,7 +176,7 @@ extension ViewController: UIScrollViewDelegate {
             self.viewModel.reloadData = {
                 self.collectionView.reloadData()
                 self.collectionView.collectionViewLayout.invalidateLayout()
-
+                
             }
             self.viewModel.fetchingMore = false
             
@@ -151,12 +189,10 @@ extension ViewController: UIScrollViewDelegate {
         let frameHeight = scrollView.frame.height        
         if offsetY > contentHeight - frameHeight{
             if viewModel.firstState == 1 && !viewModel.fetchingMore {
-             
-                    self.beginReloadViaScrollView()
-                    let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
-                    scrollView.setContentOffset(topOffest, animated: false)
-                
-                
+                self.beginReloadViaScrollView()
+                let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
+                scrollView.setContentOffset(topOffest, animated: false)
+
             }
             
             viewModel.firstState = 1
@@ -164,20 +200,19 @@ extension ViewController: UIScrollViewDelegate {
             
         } else if offsetY < -30  && Client.pageNumber > 1 {
             if viewModel.firstState == 1 && !viewModel.fetchingMore {
-                   
-                        self.beginReloadTop()
-                        let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
-                        scrollView.setContentOffset(topOffest, animated: false)
+                self.beginReloadTop()
+                let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
+                scrollView.setContentOffset(topOffest, animated: false)
+                
+            }
             
         }
-      
+        
+        
+        
+        
     }
     
-    
-    
-    
-}
-
 }
 
 

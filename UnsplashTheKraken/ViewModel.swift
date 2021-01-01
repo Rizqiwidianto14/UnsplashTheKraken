@@ -38,7 +38,6 @@ class ViewModel {
     func fetchPhotos() {
         if let client = client as? Client {
             self.isLoading = true
-            print("fetchphotos")
             let endpoint = UnsplashEndpoint.images(id: Client.apiKey, query: Client.query, page: Client.page)
             client.fetch(with: endpoint) { (condition) in
                 switch condition {
@@ -54,7 +53,6 @@ class ViewModel {
     
     
     private func fetchPhoto() {
-        print("fetchingphotos")
         //images di remove, append lagi
         let group = DispatchGroup()
         self.images.forEach { (photo) in
