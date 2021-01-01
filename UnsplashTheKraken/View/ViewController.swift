@@ -8,13 +8,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     let viewModel = ViewModel(client: Client())
     
-    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var pageIndicator: UILabel!
+    @IBOutlet weak var pageView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+        pageView.layer.cornerRadius = 5
         if let layout = collectionView.collectionViewLayout as? CollectionViewLayout{
             layout.delegate = self
         }
@@ -24,19 +30,29 @@ class ViewController: UIViewController {
         }
         viewModel.reloadData = {
             self.collectionView.reloadData()
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
             
         }
         viewModel.fetchPhotos()
+        pageIndicator.text = "Page: \(Client.pageNumber)"
         searchBar.delegate = self
-        // Do any additional setup after loading the view.
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
 }
 
 
 extension ViewController: CollectionViewLayoutDelegate{
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let image = viewModel.cellViewModels[indexPath.item].image
+        let image = viewModel.cellViewModels[indexPath.row].image
         let height = image.size.height / 2
         return height
     }
@@ -46,13 +62,15 @@ extension ViewController: CollectionViewLayoutDelegate{
 
 extension ViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("jumlah view model = \(viewModel.cellViewModels.count) || jumlah images = \(viewModel.images.count)")
+        
+        print(viewModel.cellViewModels.count)
         return viewModel.cellViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        let image = viewModel.cellViewModels[indexPath.item].image
+        
+        let image = viewModel.cellViewModels[indexPath.row].image
         cell.imageView.image = image
         return cell
     }
@@ -64,12 +82,21 @@ extension ViewController: UICollectionViewDataSource{
 extension ViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         Client.query = searchBar.text ?? "Jakarta"
+        Client.pageNumber = 1
+        Client.page = "\(Client.pageNumber)"
+        self.pageIndicator.text = "Page: \(Client.pageNumber)"
         viewModel.cellViewModels.removeAll()
         viewModel.showError = { error in
             print(error)
         }
         viewModel.fetchPhotos()
-        self.collectionView.reloadData()
+        self.viewModel.reloadData = {
+            self.collectionView.reloadData()
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
+        }
+        
+        
         
         
     }
@@ -81,33 +108,76 @@ extension ViewController: UIScrollViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ){
             Client.pageNumber += 1
             Client.page = "\(Client.pageNumber)"
+            self.pageIndicator.text = "Page: \(Client.pageNumber)"
+            self.viewModel.cellViewModels.removeAll()
             self.viewModel.showError = { error in
                 print(error)
             }
             self.viewModel.fetchPhotos()
             self.viewModel.reloadData = {
                 self.collectionView.reloadData()
+                self.collectionView.collectionViewLayout.invalidateLayout()
+
             }
             self.viewModel.fetchingMore = false
+            
+        }
+    }
+    
+    func beginReloadTop(){
+        viewModel.fetchingMore = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ){
+            Client.pageNumber -= 1
+            Client.page = "\(Client.pageNumber)"
+            self.pageIndicator.text = "Page: \(Client.pageNumber)"
+            self.viewModel.cellViewModels.removeAll()
+            self.viewModel.showError = { error in
+                print(error)
+            }
+            self.viewModel.fetchPhotos()
+            self.viewModel.reloadData = {
+                self.collectionView.reloadData()
+                self.collectionView.collectionViewLayout.invalidateLayout()
+
+            }
+            self.viewModel.fetchingMore = false
+            
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
-        let frameHeight = scrollView.frame.height
-        if offsetY > contentHeight - frameHeight - 200{
-            if viewModel.firstState == 1 {
-                if !viewModel.fetchingMore{
-                    beginReloadViaScrollView()
-                }
+        let frameHeight = scrollView.frame.height        
+        if offsetY > contentHeight - frameHeight{
+            if viewModel.firstState == 1 && !viewModel.fetchingMore {
+             
+                    self.beginReloadViaScrollView()
+                    let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
+                    scrollView.setContentOffset(topOffest, animated: false)
+                
                 
             }
+            
             viewModel.firstState = 1
+            
+            
+        } else if offsetY < -30  && Client.pageNumber > 1 {
+            if viewModel.firstState == 1 && !viewModel.fetchingMore {
+                   
+                        self.beginReloadTop()
+                        let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
+                        scrollView.setContentOffset(topOffest, animated: false)
+            
         }
-        
-
-        
-        
+      
     }
+    
+    
+    
+    
 }
+
+}
+
+

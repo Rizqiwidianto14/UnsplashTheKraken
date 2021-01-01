@@ -69,8 +69,10 @@ class ViewModel {
                     self.showError?(APIError.errorWhenConvertingImage)
                     return
                 }
-
+                
                 self.cellViewModels.append(CellViewModel(image: image))
+                
+
                 group.leave()
             }
         }
