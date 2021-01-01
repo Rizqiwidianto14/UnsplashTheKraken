@@ -192,7 +192,7 @@ extension ViewController: UIScrollViewDelegate {
                 self.beginReloadViaScrollView()
                 let topOffest:CGPoint = CGPoint(x: 0,y: -self.collectionView.contentInset.top)
                 scrollView.setContentOffset(topOffest, animated: false)
-
+                
             }
             
             viewModel.firstState = 1
