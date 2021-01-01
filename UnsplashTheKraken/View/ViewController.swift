@@ -64,7 +64,7 @@ extension ViewController: CollectionViewLayoutDelegate{
         let height = image.size.height / 2
         return height
     }
-    //test
+    
     
 }
 
