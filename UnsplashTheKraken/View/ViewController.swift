@@ -14,12 +14,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-
+    
     @IBOutlet weak var downloadingImages: UILabel!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         self.hideKeyboardWhenTappedAround()
         if let layout = collectionView.collectionViewLayout as? CollectionViewLayout{
             layout.delegate = self
@@ -64,13 +65,11 @@ extension ViewController: CollectionViewLayoutDelegate{
         let height = image.size.height / 2
         return height
     }
-    //test
     
 }
 
 extension ViewController: UICollectionViewDataSource, UIScrollViewDelegate, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return viewModel.cellViewModels.count
     }
     
@@ -86,7 +85,7 @@ extension ViewController: UICollectionViewDataSource, UIScrollViewDelegate, UICo
         viewModel.fetchingMore = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ){
             Client.pageNumber += 1
-            Client.page = "\(Client.pageNumber)"
+            Client.page = String(Client.pageNumber)
             self.viewModel.showLoading = {
                 if self.viewModel.isLoading {
                     self.indicatorView.startAnimating()
@@ -102,7 +101,6 @@ extension ViewController: UICollectionViewDataSource, UIScrollViewDelegate, UICo
             self.viewModel.fetchMorePhotos()
             self.viewModel.reloadData = {
                 self.collectionView.dataSource = self
-                print("viewModel = \(self.viewModel.cellViewModels.count) || images = \(self.viewModel.images.count)")
                 if let layout = self.collectionView.collectionViewLayout as? CollectionViewLayout {
                     layout.reloadData()
                 }
@@ -115,7 +113,7 @@ extension ViewController: UICollectionViewDataSource, UIScrollViewDelegate, UICo
         
     }
     
-
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
@@ -128,23 +126,17 @@ extension ViewController: UICollectionViewDataSource, UIScrollViewDelegate, UICo
             
             viewModel.firstState = 1
             
-            
         }
-        
-        
-        
     }
-    
-    
     
 }
 
 extension ViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-       
+        
         Client.query = searchBar.text ?? "Jakarta"
         Client.pageNumber = 1
-        Client.page = "\(Client.pageNumber)"
+        Client.page = String(Client.pageNumber)
         viewModel.cellViewModels.removeAll()
         viewModel.showLoading = {
             if self.viewModel.isLoading {
@@ -160,7 +152,11 @@ extension ViewController: UISearchBarDelegate{
         }
         viewModel.fetchPhotos()
         self.viewModel.reloadData = {
+            if let layout = self.collectionView.collectionViewLayout as? CollectionViewLayout {
+                layout.reloadData()
+            }
             self.collectionView.reloadData()
+            self.collectionView.setContentOffset(.zero, animated: true)
             self.collectionView.collectionViewLayout.invalidateLayout()
             
         }

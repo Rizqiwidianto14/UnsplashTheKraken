@@ -45,7 +45,6 @@ class ViewModel {
             client.fetch(with: endpoint) { (condition) in
                 switch condition {
                 case .success(let photos):
-                    print("fetchingmore = \(self.fetchingMore)")
                     self.images = photos.results
                     self.fetchPhoto()
                 case .error(let error):
@@ -86,7 +85,7 @@ class ViewModel {
                         self.showError?(APIError.errorWhenDownloadingImage)
                         return
                     }
-
+                    
                     guard let image = UIImage(data: imageData) else {
                         self.showError?(APIError.errorWhenConvertingImage)
                         return
@@ -94,11 +93,11 @@ class ViewModel {
                     
                     self.cellViewModels.append(CellViewModel(image: image))
                     
-
+                    
                     group.leave()
                 }
             }
-
+            
             group.notify(queue: .main) {
                 self.isLoading = false
                 self.reloadData?()
@@ -112,7 +111,7 @@ class ViewModel {
                         self.showError?(APIError.errorWhenDownloadingImage)
                         return
                     }
-
+                    
                     guard let image = UIImage(data: imageData) else {
                         self.showError?(APIError.errorWhenConvertingImage)
                         return
@@ -120,21 +119,21 @@ class ViewModel {
                     
                     self.cellViewModels.append(CellViewModel(image: image))
                     
-
+                    
                     group.leave()
                 }
             }
-
+            
             group.notify(queue: .main) {
                 self.isLoading = false
                 self.reloadData?()
             }
-
+            
         }
         
         
         
         
     }
-
+    
 }

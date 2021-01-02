@@ -27,27 +27,23 @@ extension EndPoint{
     
 }
 
-//
-//enum Query: String{
-//    case Jakarta, London, Office
-//}
 
 
 enum UnsplashEndpoint: EndPoint {
     case images(id: String, query: String, page: String)
-
+    
     var baseUrl: String {
         return Client.baseUrl
     }
-
-
+    
+    
     var path: String {
         switch self {
         case .images:
             return "/search/photos"
         }
     }
-
+    
     var parameters: [URLQueryItem] {
         switch self {
         case .images(let id, let query, let page):

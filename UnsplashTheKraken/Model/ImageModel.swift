@@ -7,8 +7,6 @@
 
 import Foundation
 
-//typealias imageArray = [Images]
-
 struct Images: Decodable{
     let results: [Image]
     
@@ -19,7 +17,5 @@ struct Image: Decodable {
 }
 
 struct URLS: Decodable {
-    let full: URL
-    let regular: URL
     let small: URL
 }
